@@ -44,12 +44,10 @@ client.on('message', message => {
 
         let indexOfh = arg.indexOf("h");
         if (indexOfh !== 0){
-            hours = arg.slice(lastIndex + 1, indexOfh);
+            hours = arg.slice(lastIndex, indexOfh);
         }
 
 
-        let embedmsg;
-        message.channel.send({ embed: embeds(message.author.tag, days, hours, args[1]) }).then( m => embedmsg = m);
 
         let timer = new timerlib();
         timer.start({
@@ -59,6 +57,9 @@ client.on('message', message => {
                 minutes: hours
             }
         });
+
+        let embedmsg;
+        message.channel.send({ embed: embeds(message.author.tag, days, hours, args[1]) }).then( m => embedmsg = m);
 
         timer.on('minutesUpdated', () => {
             hours = timer.getTimeValues().minutes; //FOR TESTING
