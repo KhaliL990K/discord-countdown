@@ -1,0 +1,20 @@
+{
+  "name": "countdownbot",
+  "version": "0.0.1",
+  "description": "A simple discord bot to have countdowns in embeds.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "countdown"
+  ],
+  "author": "SohamG",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "easytimer.js": "^3.1.0"
+  }
+}
