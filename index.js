@@ -22,8 +22,28 @@ client.on('message', message => {
  
     if (message.content.startsWith(prefix + "start ")) {
         let commandRecd = "start ";
-        let args = getArgs(message, commandRecd);
-        message.reply(`Args are \`\`\`${args}\`\`\` `);
+        let args = getArgs(message, commandRecd).split(" ");
+
+        if (args.length > 1){
+            message.reply("Too many args!!!");
+            return;
+        }
+
+        let arg = args[0];
+
+        let hours, minutes;
+        let lastIndex = arg.indexOf('h') || 0;
+        if (lastIndex !== 0) {
+            hours = arg.slice(0, lastIndex);
+        }
+
+        let indexOfM = arg.indexOf("m");
+        if (indexOfM !== 0){
+            minutes = arg.slice(lastIndex + 1, indexOfM);
+        }
+
+        message.reply(`Parsed arguments, ${hours}hours and ${minutes}minutes`);
+        
     }
 });
 
