@@ -5,7 +5,7 @@ module.exports = function genEmbed(usertag, days, hours, minutes, Title){
                             .setColor("#FF0000")
                             .setTimestamp()
                             .setTitle(Title)
-                            .setDescription(`Time left - **${days} days**, ${minutes} minutes and **${hours} hours**`)
+                            .setDescription(`Time left - **${days} days**, **${hours} hours** and ${minutes} minutes`)
                             .setAuthor(`Timer started by ${usertag}`);
     return embed;
 

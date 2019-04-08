@@ -33,6 +33,9 @@ client.on('message', message => {
             return;
         }
 
+        message.reply(args);
+        
+
         let arg = args[0];
 
         let days = 0, hours = 0, minutes = 0;
@@ -80,24 +83,34 @@ client.on('message', message => {
                 days,
                 hours,
                 minutes
-            }
+            },
+            precision: 'minutes'
         });
 
         let embedmsg;
-        message.channel.send({ embed: embeds(message.author.tag, days, hours, args[1]) }).then( m => embedmsg = m);
+        message.channel.send({ embed: embeds(message.author.tag, days, hours, minutes, args[1]) }).then( m => embedmsg = m);
 
         timer.on('minutesUpdated', () => {
-            hours = timer.getTimeValues().minutes; //FOR TESTING
-            embedmsg.edit({ embed: embeds(message.author.tag, days, hours, args[1]) });
+            minutes = timer.getTimeValues().minutes; //FOR TESTING
+            embedmsg.edit({ embed: embeds(message.author.tag, days, hours, minutes, args[1]) });
             console.log(`Minutes updated value of hours is ${hours}`)
         });
 
         timer.on('hoursUpdated', () => {
-            days = timer.getTimeValues().hours; // FOR TESTING
-            embedmsg.edit({ embed: embeds(message.author.tag, days, hours, args[1]) });
-            console.log(`Hours Updates value of days is ${days}`)
+            hours = timer.getTimeValues().hours; // FOR TESTING
+            embedmsg.edit({ embed: embeds(message.author.tag, days, hours, minutes, args[1]) });
+            console.log(`Day Updates value of days is ${days}`)
         });
 
+        timer.on('daysUpdated', () => {
+            days = timer.getTimeValues().days; // FOR TESTING
+            embedmsg.edit({ embed: embeds(message.author.tag, days, hours, minutes, args[1]) });
+            console.log(`Hours Updates value of days is ${days}`)
+        })
+
+        timer.on('targetAchieved', () => {
+            message.channel.send(`@everyone The timer titled ${args[1]} has finished! `);
+        });
         
     }
 });
