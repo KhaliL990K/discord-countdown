@@ -36,16 +36,18 @@ client.on('message', message => {
         let arg = args[0];
 
         let days, hours;
-        let lastIndex = arg.indexOf('d');
-        if (lastIndex < 0) lastIndex = 0;
-        if (lastIndex > 0) {
-            days = arg.slice(0, lastIndex);
-        }
+        // let lastIndex = arg.indexOf('d');
+        // if (lastIndex < 0) lastIndex = 0;
+        // if (lastIndex > 0) {
+        //     days = arg.slice(0, lastIndex);
+        // }
 
-        let indexOfh = arg.indexOf("h");
-        if (indexOfh !== 0){
-            hours = arg.slice(lastIndex, indexOfh);
-        }
+        // let indexOfh = arg.indexOf("h");
+        // if (indexOfh !== 0){
+        //     hours = arg.slice(lastIndex, indexOfh);
+        // }
+
+        // Attempting to use regex for above.
 
 
 
@@ -64,11 +66,13 @@ client.on('message', message => {
         timer.on('minutesUpdated', () => {
             hours = timer.getTimeValues().minutes; //FOR TESTING
             embedmsg.edit({ embed: embeds(message.author.tag, days, hours, args[1]) });
+            console.log(`Minutes updated value of hours is ${hours}`)
         });
 
         timer.on('hoursUpdated', () => {
             days = timer.getTimeValues().hours; // FOR TESTING
             embedmsg.edit({ embed: embeds(message.author.tag, days, hours, args[1]) });
+            console.log(`Hours Updates value of days is ${days}`)
         });
 
         
