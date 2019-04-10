@@ -20,7 +20,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-const prefix = "uwu ";
+const prefix = ">>";
 client.on('message', message => {
     if (!message.content.startsWith(prefix)) return;
  
@@ -39,18 +39,6 @@ client.on('message', message => {
         let arg = args[0];
 
         let days = 0, hours = 0, minutes = 0;
-        // let lastIndex = arg.indexOf('d');
-        // if (lastIndex < 0) lastIndex = 0;
-        // if (lastIndex > 0) {
-        //     days = arg.slice(0, lastIndex);
-        // }
-
-        // let indexOfh = arg.indexOf("h");
-        // if (indexOfh !== 0){
-        //     hours = arg.slice(lastIndex, indexOfh);
-        // }
-
-        // Attempting to use regex for above.
 
         let regx = /(\d*)d|(\d*)h|(\d*)m/g; // THIS IS LITERALLY BLACK MAGIC DO NOT TOUCH
         let times = arg.match(regx);
@@ -84,7 +72,7 @@ client.on('message', message => {
                 hours,
                 minutes
             },
-            precision: 'minutes'
+            precision: 'minutes'    // TODO: does not handle small amounts of time well. eg 3h 25mins etc
         });
 
         let embedmsg;
@@ -109,7 +97,8 @@ client.on('message', message => {
         })
 
         timer.on('targetAchieved', () => {
-            message.channel.send(`@everyone The timer titled ${args[1]} has finished! `);
+            //message.channel.send(`@everyone The timer titled ${args[1]} has finished! `);
+            message.reply(`The reminder titled \`${args[1]}\` has finished!`);
         });
         
     }
