@@ -2,8 +2,8 @@
 const Discord = require('discord.js');
 const timerlib = require('easytimer.js').Timer;
 const client = new Discord.Client();
-const auth = require('./auth.json');
-const embeds = require('./embeds.js');
+const auth = require('../auth.json');
+const embeds = require('../embeds.js');
 
 // TODO: let embedsToBeUpdated = []; 
 
