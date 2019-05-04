@@ -66,7 +66,7 @@ client.on('message', message => {
         let timer = new timerlib();
         timer.start({
             countdown: true,
-            startValues: {          // Temp for testing purposes.
+            startValues: {          
                 days,
                 hours,
                 minutes
@@ -79,13 +79,14 @@ client.on('message', message => {
 
         timer.on('minutesUpdated', () => {
             minutes = timer.getTimeValues().minutes; //FOR TESTING
-            embedmsg.edit({ embed: genEmbed(message.author.tag, days, hours, minutes, args[1]) });
+            embedmsg.edit({ embed: genEmbed(message.author.tag, days, hours, minutes, args[1]) })
+                    .catch(e => console.log(e));
             console.log(`Minutes updated value of hours is ${hours}`)
         });
 
         timer.on('hoursUpdated', () => {
             hours = timer.getTimeValues().hours; // FOR TESTING
-            embedmsg.edit({ embed: genEmbed(message.author.tag, days, hours, minutes, args[1]) });
+            embedmsg.edit({ embed: genEmbed(message.author.tag, days, hours, minutes, args[1]) }).catch(e => console.log(e));
             console.log(`Day Updates value of days is ${days}`)
         });
 
