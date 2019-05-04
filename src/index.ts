@@ -1,10 +1,9 @@
 "use strict";
-const Discord = require('discord.js');
+import Discord = require('discord.js');
 const timerlib = require('easytimer.js').Timer;
 const client = new Discord.Client();
-const auth = require('../auth.json');
-const embeds = require('../embeds.js');
-
+import auth = require('../auth.json');
+import genEmbed from "./embeds";
 // TODO: let embedsToBeUpdated = []; 
 
 
@@ -38,7 +37,7 @@ client.on('message', message => {
 
         let arg = args[0];
 
-        let days = 0, hours = 0, minutes = 0;
+        let days: number = 0, hours: number = 0, minutes: number = 0;
 
         let regx = /(\d*)d|(\d*)h|(\d*)m/g; // THIS IS LITERALLY BLACK MAGIC DO NOT TOUCH
         let times = arg.match(regx);
@@ -46,17 +45,17 @@ client.on('message', message => {
         times.forEach( x => {
             let end = x.charAt(x.length - 1);
             if (end == 'd'){
-                days = x.slice(0, x.length-1);
+                days = +x.slice(0, x.length-1);
                 return;
             }
 
             if(end == 'h'){
-                hours = x.slice(0, x.length-1);
+                hours = +x.slice(0, x.length-1);
                 return;
             }
 
             if(end == 'm'){
-                minutes = x.slice(0, x.length-1);
+                minutes = +x.slice(0, x.length-1);
                 return;
             }
         })
@@ -76,23 +75,23 @@ client.on('message', message => {
         });
 
         let embedmsg;
-        message.channel.send({ embed: embeds(message.author.tag, days, hours, minutes, args[1]) }).then( m => embedmsg = m);
+        message.channel.send({ embed: genEmbed(message.author.tag, days, hours, minutes, args[1]) }).then( m => embedmsg = m);
 
         timer.on('minutesUpdated', () => {
             minutes = timer.getTimeValues().minutes; //FOR TESTING
-            embedmsg.edit({ embed: embeds(message.author.tag, days, hours, minutes, args[1]) });
+            embedmsg.edit({ embed: genEmbed(message.author.tag, days, hours, minutes, args[1]) });
             console.log(`Minutes updated value of hours is ${hours}`)
         });
 
         timer.on('hoursUpdated', () => {
             hours = timer.getTimeValues().hours; // FOR TESTING
-            embedmsg.edit({ embed: embeds(message.author.tag, days, hours, minutes, args[1]) });
+            embedmsg.edit({ embed: genEmbed(message.author.tag, days, hours, minutes, args[1]) });
             console.log(`Day Updates value of days is ${days}`)
         });
 
         timer.on('daysUpdated', () => {
             days = timer.getTimeValues().days; // FOR TESTING
-            embedmsg.edit({ embed: embeds(message.author.tag, days, hours, minutes, args[1]) });
+            embedmsg.edit({ embed: genEmbed(message.author.tag, days, hours, minutes, args[1]) });
             console.log(`Hours Updates value of days is ${days}`)
         })
 

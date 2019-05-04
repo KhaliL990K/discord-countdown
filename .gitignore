@@ -107,3 +107,6 @@ typings/
 
 #auth file
 auth.json
+
+#compiled js
+out/
