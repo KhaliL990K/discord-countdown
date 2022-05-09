@@ -1,6 +1,6 @@
-let { RichEmbed } = require("discord.js");
+let { MessageEmbed } = require("discord.js");
 module.exports = function genEmbed(usertag, days, hours, minutes, Title){
-    let embed = new RichEmbed()
+    let embed = new MessageEmbed()
                             .setFooter("Countdown bot by Zleet")
                             .setColor("#FF0000")
                             .setTimestamp()
